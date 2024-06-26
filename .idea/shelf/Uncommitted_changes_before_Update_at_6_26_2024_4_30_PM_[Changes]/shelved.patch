@@ -1,0 +1,75 @@
+Index: CLI_To_Do_List.py
+===================================================================
+diff --git a/CLI_To_Do_List.py b/CLI_To_Do_List.py
+deleted file mode 100644
+--- a/CLI_To_Do_List.py	(revision 5a5775dc721af5e6c9f4d9049634fff8f0116029)
++++ /dev/null	(revision 5a5775dc721af5e6c9f4d9049634fff8f0116029)
+@@ -1,42 +0,0 @@
+-class Car:
+-
+-    def __init__(self, speed=0):
+-        self.speed = speed
+-        self.odometer = 0
+-        self.time = 0
+-
+-    def accelerate(self):
+-        self.speed += 5
+-
+-    def brake(self):
+-        self.speed -= 5
+-
+-    def step(self):
+-        self.odometer += self.speed
+-        self.time += 1
+-
+-    def average_speed(self):
+-        return self.odometer / self.time
+-
+-
+-if __name__ == '__main__':
+-
+-    my_car = Car()
+-    print("I'm a car!")
+-    while True:
+-        action = input("What should I do? [A]ccelerate, [B]rake, "
+-                        "show [O]dometer, or show average [S]peed?").upper()
+-        if action not in "ABOS" or len(action) != 1:
+-            print("I don't know how to do that")
+-            continue
+-        if action == 'A':
+-            my_car.accelerate()
+-            print("Accelerating...")
+-        elif action == 'B':
+-            my_car.brake()
+-            print("Braking...")
+-        elif action == 'O':
+-            print("The car has driven {} kilometers".format(my_car.odometer))
+-        elif action == 'S':
+-            print("The car's average speed was {} kph".format(my_car.average_speed()))
+-        my_car.step()
+\ No newline at end of file
+Index: main.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/main.py b/main.py
+new file mode 100644
+--- /dev/null	(date 1719392298888)
++++ b/main.py	(date 1719392298888)
+@@ -0,0 +1,11 @@
++# main.py
++import typer
++
++app = typer.Typer()
++
++@app.command()
++def run():
++    typer.echo("Running your command")
++
++if __name__ == "__main__":
++    app()
+diff --git a/hello_world.txt b/hello_world.txt
+deleted file mode 100644
+diff --git a/README.txt b/README.txt
+deleted file mode 100644
