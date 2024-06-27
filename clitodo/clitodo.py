@@ -4,7 +4,7 @@
 from pathlib import Path
 from typing import Any, Dict, List, NamedTuple
 
-from clitodo import DB_READ_ERROR
+from clitodo import DB_READ_ERROR, ID_ERROR
 from clitodo.database import DatabaseHandler
 
 class CurrentToDo(NamedTuple): #Create a subclass of typing.NamedTuple with two fields
