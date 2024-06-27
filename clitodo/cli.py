@@ -2,11 +2,13 @@
 # clitodo/cli.py
 
 from pathlib import Path
-from typing import Optional
+from typing import List, Optional
 
 import typer
 
-from clitodo import ERRORS, __app_name__, __version__, config, database
+from clitodo import (
+    ERRORS, __app_name__, __version__, config, database, clitodo
+)
 
 app = typer.Typer() #Create an explicit Typer application
 
@@ -37,6 +39,24 @@ def init( #Define a Typer Option instance and assign it as a default value to db
         raise typer.Exit(1)
     else:
         typer.secho(f"The to-do database is {db_path}", fg=typer.colors.GREEN)
+
+def get_todoer() -> clitodo.Todoer:
+    if config.CONFIG_FILE_PATH.exists(): # Define a conditional that checks if the application's configuration file exist
+        db_path = database.get_database_path(config.CONFIG_FILE_PATH)
+    else:
+        typer.secho(
+            'Confid file not found. Please run "clitodo init"',
+            fg=typer.colors.RED,
+        )
+        raise typer.Exit(1)
+    if db_path.exists(): #Check if the path to the database exists
+        return clitodo.Todoer(db_path)
+    else:
+        typer.secho(
+            'Database not found. Please, run "clitodo init"'
+            fg=typer.colors.RED
+        )
+        raise typer.Exit(1)
 
 def _version_callback(value: bool) -> None:
     if value:
