@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="076bbc09-c38c-4933-b632-a7341e97a48c" name="Changes" comment="step 2: Set Up Initial CLI Tests with Pytest">
+    <list default="true" id="076bbc09-c38c-4933-b632-a7341e97a48c" name="Changes" comment="step 3: Prepare the To-Do Database for Use">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clitodo/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/clitodo/config.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clitodo/database.py" beforeDir="false" afterPath="$PROJECT_DIR$/clitodo/database.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -106,7 +106,15 @@
       <option name="project" value="LOCAL" />
       <updated>1719458031430</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="step 3: Prepare the To-Do Database for Use">
+      <option name="closed" value="true" />
+      <created>1719460812341</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1719460812341</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -114,6 +122,7 @@
     <MESSAGE value="step 2" />
     <MESSAGE value="step 2: Create an Entry-Point Script" />
     <MESSAGE value="step 2: Set Up Initial CLI Tests with Pytest" />
-    <option name="LAST_COMMIT_MESSAGE" value="step 2: Set Up Initial CLI Tests with Pytest" />
+    <MESSAGE value="step 3: Prepare the To-Do Database for Use" />
+    <option name="LAST_COMMIT_MESSAGE" value="step 3: Prepare the To-Do Database for Use" />
   </component>
 </project>
