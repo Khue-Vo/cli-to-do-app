@@ -58,6 +58,27 @@ def get_todoer() -> clitodo.Todoer:
         )
         raise typer.Exit(1)
 
+@app.command()  # Define add() as a Typer command using the @app.command()
+def add(
+        description: List[str] = typer.Argument(...), #Define description as an argument to add(),
+                                                      #user must provide a to-do description at the command line
+        priority: int = typer.Option(2, "--priority", "-p", min=1, max=3),
+) -> None:
+    """Add a new to-do with a DESCRIPTION."""
+    todoer = get_todoer()
+    todo, error = todoer.add(description, priority)
+    if error: #A conditional statement that prints an error message and exits the application if an error occurs while adding the new to-do to the database
+        typer.secho(
+            f'Adding to-do failed with "{ERRORS[error]}"', fg=typer.colors.RED
+        )
+        raise typer.Exit(1)
+    else:
+        typer.secho(
+            f"""to-do: "{todo['Description']}" was added"""
+            f"""with priority: {priority}""",
+            fg=typer.colors.GREEN,
+        )
+
 def _version_callback(value: bool) -> None:
     if value:
         typer.echo(f"{__app_name__} v{__version__}") #Prints the application name and version
