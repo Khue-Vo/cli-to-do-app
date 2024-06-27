@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="076bbc09-c38c-4933-b632-a7341e97a48c" name="Changes" comment="step 2">
+    <list default="true" id="076bbc09-c38c-4933-b632-a7341e97a48c" name="Changes" comment="step 2: Set Up Initial CLI Tests with Pytest">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clitodo/__main__.py" beforeDir="false" afterPath="$PROJECT_DIR$/clitodo/__main__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clitodo/cli.py" beforeDir="false" afterPath="$PROJECT_DIR$/clitodo/cli.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,12 +81,30 @@
       <option name="project" value="LOCAL" />
       <updated>1719454103355</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="step 2: Create an Entry-Point Script">
+      <option name="closed" value="true" />
+      <created>1719456346370</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1719456346370</updated>
+    </task>
+    <task id="LOCAL-00005" summary="step 2: Set Up Initial CLI Tests with Pytest">
+      <option name="closed" value="true" />
+      <created>1719457081780</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1719457081780</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="step 1" />
     <MESSAGE value="step 2" />
-    <option name="LAST_COMMIT_MESSAGE" value="step 2" />
+    <MESSAGE value="step 2: Create an Entry-Point Script" />
+    <MESSAGE value="step 2: Set Up Initial CLI Tests with Pytest" />
+    <option name="LAST_COMMIT_MESSAGE" value="step 2: Set Up Initial CLI Tests with Pytest" />
   </component>
 </project>

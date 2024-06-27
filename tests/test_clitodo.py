@@ -7,7 +7,7 @@ from clitodo import __app_name__, __version__, cli
 runner = CliRunner()
 
 def test_version(): #Define first unit test for testing the application's version
-    result = runner.invoke(cli.app, ["__version"]) #Run the application with the __version option,
+    result = runner.invoke(cli.app, ["--version"]) #Run the application with the __version option,
                                                         #stop the result of this call in result
     assert result.exit_code == 0 #Assert that the application's exit code is equal to 0
                                  #to check that the application ran successfully
