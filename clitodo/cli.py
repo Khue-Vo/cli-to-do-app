@@ -79,6 +79,41 @@ def add(
             fg=typer.colors.GREEN,
         )
 
+@app.command(name="list") #Define list_all() as a Typer command using the @app.command(),
+                          #The name argument to this decorator sets a custom name for the command, which is list here
+                          #Doesn't take any argument or option, just lists the to-dos when user runs list from the command line
+def list_all() -> None:
+    """List all to-dos."""
+    todoer = get_todoer()
+    todo_list = todoer.get_todo_list() #Gets the to-do list from the database
+    if len(todo_list) == 0: #A conditional statement to check if there’s at least one to-do in the list
+        typer.secho(
+            "There are no tasks in the to-do list yet", fg=typer.colors.RED
+        )
+        raise typer.Exit()
+    typer.secho("\nto-do list:\n", fg=typer.colors.BLUE, bold=True) #Prints a top-level header to present the to-do list
+    """Define and print the required columns to display the to-do list in a tabular format"""
+    columns = (
+        "ID.  ",
+        "| Priority  ",
+        "| Done  ",
+        "| Description  ",
+    )
+    headers = "".join(columns)
+    typer.secho(headers, fg=typer.colors.BLUE, bold=True)
+    typer.secho("-" * len(headers), fg=typer.colors.BLUE)
+    for id, todo in enumerate(todo_list, 1): #Print every single to-do on its own row with appropriate padding and separators
+        desc, priority, done = todo.values()
+        typer.secho(
+            f"{id}{(len(columns[0]) - len(str(id))) * ' '}"
+            f"| ({priority}){(len(columns[1]) - len(str(priority)) - 4) * ' '}"
+            f"| {done}{(len(columns[2]) - len(str(done)) -2) * ' '}"
+            f"| {desc}",
+            fg=typer.colors.BLUE
+        )
+    typer.secho("-" * len(headers) + "\n", fg=typer.colors.BLUE) #Prints a line of dashes  to visually separate the to-do list from the next command-line prompt
+
+
 def _version_callback(value: bool) -> None:
     if value:
         typer.echo(f"{__app_name__} v{__version__}") #Prints the application name and version
