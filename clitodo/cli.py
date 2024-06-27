@@ -75,7 +75,7 @@ def add(
     else:
         typer.secho(
             f"""to-do: "{todo['Description']}" was added"""
-            f"""with priority: {priority}""",
+            f""" with priority: {priority}""",
             fg=typer.colors.GREEN,
         )
 
