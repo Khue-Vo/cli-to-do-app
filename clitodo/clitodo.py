@@ -15,7 +15,7 @@ class Todoer:
     def __init__(self, db_path: Path) -> None:
         self._db_handler= DatabaseHandler(db_path) # Falitate direct communication with the to-do database
 
-    def add(self, description: List[str], priority: int = 2) -> CurrentTodo:
+    def add(self, description: List[str], priority: int = 2) -> CurrentToDo:
         """Add a new to-do to the database."""
         description_text = " ".join(description)
         if not description_text.endswith("."):

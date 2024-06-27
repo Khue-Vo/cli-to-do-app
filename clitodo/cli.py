@@ -45,7 +45,7 @@ def get_todoer() -> clitodo.Todoer:
         db_path = database.get_database_path(config.CONFIG_FILE_PATH)
     else:
         typer.secho(
-            'Confid file not found. Please run "clitodo init"',
+            'Confid file not found. Please, run "clitodo init"',
             fg=typer.colors.RED,
         )
         raise typer.Exit(1)
@@ -53,8 +53,8 @@ def get_todoer() -> clitodo.Todoer:
         return clitodo.Todoer(db_path)
     else:
         typer.secho(
-            'Database not found. Please, run "clitodo init"'
-            fg=typer.colors.RED
+            'Database not found. Please, run "clitodo init"',
+            fg=typer.colors.RED,
         )
         raise typer.Exit(1)
 
