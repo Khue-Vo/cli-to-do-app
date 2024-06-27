@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="076bbc09-c38c-4933-b632-a7341e97a48c" name="Changes" comment="step 2: Set Up Initial CLI Tests with Pytest">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clitodo/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/clitodo/config.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,7 +98,15 @@
       <option name="project" value="LOCAL" />
       <updated>1719457081780</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="step 2: Set Up Initial CLI Tests with Pytest">
+      <option name="closed" value="true" />
+      <created>1719458031430</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1719458031430</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
