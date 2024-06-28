@@ -4,7 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="076bbc09-c38c-4933-b632-a7341e97a48c" name="Changes" comment="step 4: Set Up the To-Do App Back End">
+    <list default="true" id="076bbc09-c38c-4933-b632-a7341e97a48c" name="Changes" comment="step 5: Code the Adding and Listing To-Dos Functionalities">
+      <change beforePath="$PROJECT_DIR$/.idea/cli-to-do-app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/cli-to-do-app.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/clitodo/cli.py" beforeDir="false" afterPath="$PROJECT_DIR$/clitodo/cli.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/clitodo/clitodo.py" beforeDir="false" afterPath="$PROJECT_DIR$/clitodo/clitodo.py" afterDir="false" />
@@ -171,7 +172,23 @@
       <option name="project" value="LOCAL" />
       <updated>1719481005489</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="step 4: Set Up the To-Do App Back End">
+      <option name="closed" value="true" />
+      <created>1719482659337</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1719482659337</updated>
+    </task>
+    <task id="LOCAL-00016" summary="step 5: Code the Adding and Listing To-Dos Functionalities">
+      <option name="closed" value="true" />
+      <created>1719482747393</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1719482747393</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -181,6 +198,7 @@
     <MESSAGE value="step 2: Set Up Initial CLI Tests with Pytest" />
     <MESSAGE value="step 3: Prepare the To-Do Database for Use" />
     <MESSAGE value="step 4: Set Up the To-Do App Back End" />
-    <option name="LAST_COMMIT_MESSAGE" value="step 4: Set Up the To-Do App Back End" />
+    <MESSAGE value="step 5: Code the Adding and Listing To-Dos Functionalities" />
+    <option name="LAST_COMMIT_MESSAGE" value="step 5: Code the Adding and Listing To-Dos Functionalities" />
   </component>
 </project>

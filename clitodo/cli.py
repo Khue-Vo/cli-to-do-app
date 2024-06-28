@@ -113,6 +113,22 @@ def list_all() -> None:
         )
     typer.secho("-" * len(headers) + "\n", fg=typer.colors.BLUE) #Prints a line of dashes  to visually separate the to-do list from the next command-line prompt
 
+@app.command(name="complete") #Define set_done() as a Typer command with the @app.command() decorator
+def set_done(todo_id:  int = typer.Argument(...)) -> None:
+    """Complete a to-do by setting it as done using its TODO_ID"""
+    todoer = get_todoer()
+    todo, error = todoer.set_done(todo_id) #Sets the to-do with the specific todo_id as done
+    if error: #Checks if any error occurs during the process
+        typer.secho(
+            f'Completing to-do # "{todo_id}" failed with "{ERRORS[error]}"',
+            fg=typer.colors.RED,
+        )
+        raise typer.Exit(1)
+    else:
+        typer.secho(
+            f"""to-do # {todo_id} "{todo['Description']}" completed!""",
+            fg=typer.colors.GREEN,
+        )
 
 def _version_callback(value: bool) -> None:
     if value:

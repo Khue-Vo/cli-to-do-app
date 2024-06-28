@@ -36,3 +36,16 @@ class Todoer:
         """Return the current to-do list."""
         read = self._db_handler.read_todos() #Get the entire to-do list from the database
         return read.todo_list
+
+    def set_done(self, todo_id: int) -> CurrentToDo:
+        """Set a to-do as done."""
+        read = self._db_handler.read_todos() #Read all the to-dos
+        if read.error: #Check if any error occurs during the reading
+            return CurrentToDo({}, read.error)
+        try:
+            todo = read.todo_list[todo_id - 1] #Catch invalid to-do IDs that translate to invalid indices in the underlying to-do list
+        except IndexError:
+            return CurrentToDo({}, ID_ERROR)
+        todo["Done"] = True #Set the to-do as done
+        write = self._db_handler.write_todos(read.todo_list) #Write the update back to the database
+        return CurrentToDo(todo, write.error)
