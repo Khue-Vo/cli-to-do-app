@@ -61,3 +61,8 @@ class Todoer:
             return CurrentToDo({}, ID_ERROR)
         write = self._db_handler.write_todos(read.todo_list) #Write the updated to-do list back to the database
         return CurrentToDo(todo, write.error)
+
+    def remove_all(self) -> CurrentToDo:
+        """Remove all to-dos from the database."""
+        write = self._db_handler.write_todos([])
+        return CurrentToDo({}, write.error)
