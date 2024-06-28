@@ -178,19 +178,20 @@ def remove(
         else:
             typer.echo("Operation canceled")
 
-@app.command(name="clear")
+@app.command(name="clear") #Define remove_all() as a Typer command using the @app.command() decorator with clear as the command name
 def remove_all(
         force: bool = typer.Option(
             ...,
             prompt="Delete all to-dos?",
             help="Force deletion without confirmations",
-        ),
+        ), #Define force as a Typer Option
 ) -> None:
     """Remove all to-dos."""
     todoer = get_todoer()
-    if force:
+    if force: #Checks if force is True
+              #If so, remove all the to-dos from the database
         error = todoer.remove_all().error
-        if error:
+        if error: #Check if something go wrong during the removing process
             typer.secho(
                 f'Removing to-dos failed with "{ERRORS[error]}"',
                 fg=typer.colors.RED,
