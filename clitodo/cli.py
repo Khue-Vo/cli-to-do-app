@@ -130,7 +130,7 @@ def set_done(todo_id:  int = typer.Argument(...)) -> None:
             fg=typer.colors.GREEN,
         )
 
-@app.command()
+@app.command() #Define remove() asa Typer CLI command
 def remove(
         todo_id: int = typer.Argument(...),
         force: bool = typer.Option(
@@ -138,12 +138,14 @@ def remove(
             "--force",
             "-f",
             help="Force deletion without confirmation.",
-        ),
+        ), #Defines force as an option for the remove command
+           #Allows user to delete a to-do without confirmation
 ) -> None:
     """Remove a to-do using its TODO_ID."""
     todoer = get_todoer()
 
-    def _remove():
+    def _remove(): #Define an inner function
+                   #Helper function that allows you to reuse the remove functionality
         todo ,error = todoer.remove(todo_id)
         if error:
             typer.secho(
@@ -156,18 +158,21 @@ def remove(
                 f"""to-do # {todo_id}: '{todo["Description"]}' was removed""",
                 fg=typer.colors.GREEN,
             )
-    if force:
+    if force: #Checks the value of force.
+              #If True, the user wants to remove the to-do without confirmation
         _remove()
     else:
-        todo_list =todoer.get_todo_list()
-        try:
+        todo_list =todoer.get_todo_list() #Get the entire to-do list from the database
+        try: #Retrieves the desired to-do from the list
             todo = todo_list[todo_id - 1]
         except IndexError:
             typer.secho("Invalid TODO_ID", fg=typer.colors.RED)
             raise typer.Exit(1)
         delete = typer.confirm(
             f"Delete to-do # {todo_id}: {todo['Description']}?"
-        )
+        ) #Call Typer’s confirm() and store the result in delete.
+          #This function provides an alternative way to ask for confirmation.
+          #It allows to use a dynamically created confirmation prompt
         if delete:
             _remove()
         else:
