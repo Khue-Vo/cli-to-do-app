@@ -49,3 +49,15 @@ class Todoer:
         todo["Done"] = True #Set the to-do as done
         write = self._db_handler.write_todos(read.todo_list) #Write the update back to the database
         return CurrentToDo(todo, write.error)
+
+    def remove(self, todo_id: int) -> CurrentToDo:
+        """Remove a to-do from the database using its id or index."""
+        read = self._db_handler.read_todos() #Read the to-do list from the database
+        if read.error: #Checks if any error occurs during the reading process
+            return CurrentToDo({}, read.error)
+        try: #Catch any invalid ID coming from the user’s input
+            todo = read.todo_list.pop(todo_id - 1)
+        except IndexError:
+            return CurrentToDo({}, ID_ERROR)
+        write = self._db_handler.write_todos(read.todo_list) #Write the updated to-do list back to the database
+        return CurrentToDo(todo, write.error)

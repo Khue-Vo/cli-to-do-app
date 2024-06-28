@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="076bbc09-c38c-4933-b632-a7341e97a48c" name="Changes" comment="step 5: Code the Adding and Listing To-Dos Functionalities">
-      <change beforePath="$PROJECT_DIR$/.idea/cli-to-do-app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/cli-to-do-app.iml" afterDir="false" />
+    <list default="true" id="076bbc09-c38c-4933-b632-a7341e97a48c" name="Changes" comment="#7 Code the To-Do Completion Functionality">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/clitodo/cli.py" beforeDir="false" afterPath="$PROJECT_DIR$/clitodo/cli.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/clitodo/clitodo.py" beforeDir="false" afterPath="$PROJECT_DIR$/clitodo/clitodo.py" afterDir="false" />
@@ -188,7 +187,15 @@
       <option name="project" value="LOCAL" />
       <updated>1719482747393</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="#7 Code the To-Do Completion Functionality">
+      <option name="closed" value="true" />
+      <created>1719540001848</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1719540001848</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -199,6 +206,7 @@
     <MESSAGE value="step 3: Prepare the To-Do Database for Use" />
     <MESSAGE value="step 4: Set Up the To-Do App Back End" />
     <MESSAGE value="step 5: Code the Adding and Listing To-Dos Functionalities" />
-    <option name="LAST_COMMIT_MESSAGE" value="step 5: Code the Adding and Listing To-Dos Functionalities" />
+    <MESSAGE value="#7 Code the To-Do Completion Functionality" />
+    <option name="LAST_COMMIT_MESSAGE" value="#7 Code the To-Do Completion Functionality" />
   </component>
 </project>
