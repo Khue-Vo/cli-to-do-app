@@ -7,21 +7,21 @@ allows the users to interact with the app and manage their to-do lists.
 
 # Requirements
 
-The Model-View-Controller pattern
+- The Model-View-Controller pattern
 
-Command-line interfaces (CLI)
+- Command-line interfaces (CLI)
 
-Python type hints, also known as type annotations
+- Python type hints, also known as type annotations
 
-Unit tests with pytest
+- Unit tests with pytest
 
-Object-oriented programming in Python
+- Object-oriented programming in Python
 
-Configuration files with configparser
+- Configuration files with configparser
 
-JSON files with Python's json
+- JSON files with Python's json
 
-File system path manipulation with pathlib
+- File system path manipulation with pathlib
 
 # Installation
 
