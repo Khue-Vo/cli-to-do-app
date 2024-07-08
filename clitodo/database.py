@@ -2,16 +2,21 @@
 # clitodo/database.py
 
 import configparser #This module provides the ConfigParser class, which allows you to handle config files with a structure similar to INI files
-import json
+import sqlite3
 from pathlib import Path #This class provides a cross-platform way to handle system paths
 from typing import Any, Dict, List, NamedTuple
 
 from clitodo import DB_READ_ERROR, DB_WRITE_ERROR, SQL3_ERROR, SUCCESS
 
 DEFAULT_DB_FILE_PATH = Path.home().joinpath(
-    "." +Path.home().stem + "_todo.json"
+    "." +Path.home().stem + "_todo.db"
 ) # Create a holder for the default database file path
   # The application will use this path if the user doesn't provide a custom one
+
+def get_database_connection(db_file_path = DEFAULT_DB_FILE_PATH):
+    """Connect to the SQLite database. Create a new database file if it doesn't exist."""
+    connection = sqlite3.connect(db_file_path)
+    return connection
 
 def get_database_path(config_file: Path) -> Path:
     """Return the current path to the to-do database."""
@@ -28,7 +33,7 @@ def init_database(db_path: Path) -> int:
     except OSError:
         return DB_WRITE_ERROR
 
-class DBResponse(NamedTuple):
+"""class DBResponse(NamedTuple):
     todo_list: List[Dict[str, Any]] #The to-do list users will write and read from the database
     error: int #An integer number representing a return code related to the current database operation
 
@@ -52,4 +57,4 @@ class DatabaseHandler: #Allow users to read and write data to the to-do database
                 json.dump(todo_list, db, indent=4) #Dump the to-do list as a JSON payload into the database
             return DBResponse(todo_list, SUCCESS)
         except OSError: #Catch file IO problems
-            return DBResponse(todo_list, DB_WRITE_ERROR)
+            return DBResponse(todo_list, DB_WRITE_ERROR)"""

@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="076bbc09-c38c-4933-b632-a7341e97a48c" name="Changes" comment="#8 Implement the clear CLI Command">
+    <list default="true" id="076bbc09-c38c-4933-b632-a7341e97a48c" name="Changes" comment="#11 Changing __init__.py">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clitodo/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/clitodo/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/clitodo/database.py" beforeDir="false" afterPath="$PROJECT_DIR$/clitodo/database.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -235,7 +234,15 @@
       <option name="project" value="LOCAL" />
       <updated>1720421294518</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="#11 Changing __init__.py">
+      <option name="closed" value="true" />
+      <created>1720429141537</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1720429141537</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -249,6 +256,7 @@
     <MESSAGE value="#7 Code the To-Do Completion Functionality" />
     <MESSAGE value="#8 Implement the remove CLI Command" />
     <MESSAGE value="#8 Implement the clear CLI Command" />
-    <option name="LAST_COMMIT_MESSAGE" value="#8 Implement the clear CLI Command" />
+    <MESSAGE value="#11 Changing __init__.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="#11 Changing __init__.py" />
   </component>
 </project>
