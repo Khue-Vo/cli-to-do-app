@@ -6,7 +6,7 @@ import json
 from pathlib import Path #This class provides a cross-platform way to handle system paths
 from typing import Any, Dict, List, NamedTuple
 
-from clitodo import DB_READ_ERROR, DB_WRITE_ERROR, JSON_ERROR, SUCCESS
+from clitodo import DB_READ_ERROR, DB_WRITE_ERROR, SQL3_ERROR, SUCCESS
 
 DEFAULT_DB_FILE_PATH = Path.home().joinpath(
     "." +Path.home().stem + "_todo.json"
