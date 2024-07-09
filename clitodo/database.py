@@ -24,6 +24,11 @@ def init_database(db_path: Path) -> int:
     """Create the to-do database."""
     try:
         conn = sqlite3.connect(db_path)
+        conn.execute('''CREATE TABLE TODO_LIST
+                (ID INT NOT NULL,
+                PRIORITY INT PRIMARY KEY NOT NULL,
+                DONE TEXT NOT NULL,
+                DESCRIPTION TEXT NOT NULL);''')
         conn.close()
         return SUCCESS
     except sqlite3.Error as e:
