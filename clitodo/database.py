@@ -17,7 +17,7 @@ def init_database(db_path: Path):
         conn = sqlite3.connect(db_path)
         conn.execute('''CREATE TABLE IF NOT EXISTS TODO_LIST
                 (ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-                PRIORITY INT DEFAULT 2 CHECK(PRIORITY >= 1 AND PRIORITY <= 3),
+                PRIORITY INT NOT NULL,
                 DONE BOOLEAN DEFAULT FALSE,
                 DESCRIPTION TEXT NOT NULL);''')
         conn.close()
@@ -26,13 +26,31 @@ def init_database(db_path: Path):
         print(e)
         return DB_WRITE_ERROR
 
+def table_exist(db_path: Path) -> bool:
+    """Check if table created in database."""
+    try:
+        conn = sqlite3.connect(db_path)
+        cursor = conn.cursor()
+        cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='stocks'")
+        result = cursor.fetchone()
+        if result is not None:
+            return True
+        else:
+            return False
+    except sqlite3.Error as e:
+        print(e)
+        return DB_READ_ERROR
+    finally:
+        if conn:
+            conn.close()
+
 class DBResponse(NamedTuple):
     todo_list: List[Dict[str, Any]] #The to-do list users will write and read from the database
     error: int #An integer number representing a return code related to the current database operation
 
 class DatabaseHandler: #Allow users to read and write data to the to-do database using the json module from the standard library
     def __init__(self) -> None: #Define class initializer
-        self._conn = sqlite3.connect(DEFAULT_DB_FILE_PATH)
+        self._conn = sqlite3.connect(db_path)
         self._cursor = self._conn.cursor
 
     def read_todos(self) -> DBResponse: #This method reads the to-do list from tha database and deserializes it

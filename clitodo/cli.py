@@ -1,6 +1,7 @@
 """This module provides the CLI To-Do List"""
 # clitodo/cli.py
 
+import os
 from pathlib import Path
 from typing import List, Optional
 
@@ -11,10 +12,11 @@ from clitodo import (
 )
 
 app = typer.Typer() #Create an explicit Typer application
+db_path: str = ""
 
 @app.command() #Define init() as a Typer command using the @app.command()
 def init( #Define a Typer Option instance and assign it as a default value to db_path
-        db_path: str = typer.Option(
+        db_path_input: str = typer.Option(
             str(database.DEFAULT_DB_FILE_PATH),
             "--db-path",
             "-db",
@@ -23,6 +25,8 @@ def init( #Define a Typer Option instance and assign it as a default value to db
         )
 )-> None:
     """Initialize the to-do database."""
+    global db_path
+    db_path = db_path_input
     db_init_error = database.init_database(Path(db_path)) #Initialize the database with an empty to-do list
     if db_init_error: #Check if the call to init_database() returns an error
         typer.secho(
@@ -34,16 +38,14 @@ def init( #Define a Typer Option instance and assign it as a default value to db
         typer.secho(f"The to-do database is {db_path}", fg=typer.colors.GREEN)
 
 def get_todoer() -> clitodo.Todoer:
-    # if config.CONFIG_FILE_PATH.exists(): # Define a conditional that checks if the application's configuration file exist
-    #     db_path = database.get_database_path(config.CONFIG_FILE_PATH)
-    # else:
-    #     typer.secho(
-    #         'Config file not found. Please, run "clitodo init"',
-    #         fg=typer.colors.RED,
-    #     )
-    #     raise typer.Exit(1)
-    if db_path.exists(): #Check if the path to the database exists
-        return clitodo.Todoer(db_path)
+    if os.path.exists(db_path):
+        if database.table_exists(db_path):
+            return clitodo.Todoer(db_path)
+        else:
+            typer.secho('Table not found. Please, run "clitodo init"',
+                        fg=typer.colors.RED,
+            )
+            raise typer.Exit(1)
     else:
         typer.secho(
             'Database not found. Please, run "clitodo init"',
