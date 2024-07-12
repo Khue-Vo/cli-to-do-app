@@ -10,27 +10,15 @@ from clitodo import DB_READ_ERROR, DB_WRITE_ERROR, SUCCESS
 
 DEFAULT_DB_FILE_PATH = Path.home().joinpath("." +Path.home().stem + "_todo.db")# Create a holder for the default database file path
                                                                                # The application will use this path if the user doesn't provide a custom one
-conn = sqlite3.connect(DEFAULT_DB_FILE_PATH)
-conn.close()
-# def get_database_path(config_file: Path) -> Path:
-#     """Return the current path to the to-do database."""
-#     config_parser = configparser.ConfigParser()
-#     config_parser.read(config_file)
-#     return Path(config_parser["General"]["database"])# The "General" key represents the file section that stores the required information
-#                                                      # The "database" key retireves tha database path
 
-def init_database(self):
+def init_database(db_path: Path):
     """Create the to-do database."""
     try:
-        self.conn = conn
-        self.conn.execute('''CREATE TABLE IF NOT EXIST TODO_LIST
-        (ID INT PRIMARY KEY AUTOINCREMENT NOT NULL,
-        PRIORITY INT DEFAULT 2 CHECK(PRIORITY >= 1 AND PRIORITY <= 3),
-        DONE BOOLEAN DEFAULT FALSE,
-        DESCRIPTION TEXT NOT NULL);''')
-        # self.conn.close()
+        conn = sqlite3.connect(db_path)
+        conn.close()
         return SUCCESS
-    except sqlite3.Error:
+    except sqlite3.Error as e:
+        print(e)
         return DB_WRITE_ERROR
 
 class DBResponse(NamedTuple):
@@ -39,7 +27,7 @@ class DBResponse(NamedTuple):
 
 class DatabaseHandler: #Allow users to read and write data to the to-do database using the json module from the standard library
     def __init__(self) -> None: #Define class initializer
-        self._conn = sqlite3.connect('todo.db')
+        self._conn = sqlite3.connect(DEFAULT_DB_FILE_PATH)
         self._cursor = self._conn.cursor
 
     def read_todos(self) -> DBResponse: #This method reads the to-do list from tha database and deserializes it

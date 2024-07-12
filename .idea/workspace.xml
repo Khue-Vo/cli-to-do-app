@@ -5,8 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="076bbc09-c38c-4933-b632-a7341e97a48c" name="Changes" comment="#13 SQL3 - Create new todo list">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/clitodo/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/clitodo/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clitodo/cli.py" beforeDir="false" afterPath="$PROJECT_DIR$/clitodo/cli.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/clitodo/database.py" beforeDir="false" afterPath="$PROJECT_DIR$/clitodo/database.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -32,19 +31,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.CLI_To_Do_List.executor": "Run",
-    "Python.__main__.executor": "Run",
-    "Python.activate_this.executor": "Run",
-    "Python.cehcking.executor": "Run",
-    "Python.database.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/Users/Khue Vo/training/python/cli-to-do-app",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.CLI_To_Do_List.executor&quot;: &quot;Run&quot;,
+    &quot;Python.__main__.executor&quot;: &quot;Run&quot;,
+    &quot;Python.activate_this.executor&quot;: &quot;Run&quot;,
+    &quot;Python.cehcking.executor&quot;: &quot;Run&quot;,
+    &quot;Python.database.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Khue Vo/training/python/cli-to-do-app&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -277,7 +276,15 @@
       <option name="project" value="LOCAL" />
       <updated>1720518714830</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="#13 SQL3 - Create new todo list">
+      <option name="closed" value="true" />
+      <created>1720749688163</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1720749688163</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">

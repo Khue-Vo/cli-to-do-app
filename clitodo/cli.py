@@ -23,14 +23,7 @@ def init( #Define a Typer Option instance and assign it as a default value to db
         )
 )-> None:
     """Initialize the to-do database."""
-    # app_init_error = config.init_app(db_path) #Create the application's configuration file and to-do database
-    # if app_init_error: #Check if the call to init_app() returns an error
-    #     typer.secho(
-    #         f'Creating config file failed with "{ERRORS[app_init_error]}"',
-    #         fg=typer.colors.RED,
-    #     )
-    #     raise typer.Exit(1)
-    db_init_error = database.init_database() #Initialize the database with an empty to-do list
+    db_init_error = database.init_database(Path(db_path)) #Initialize the database with an empty to-do list
     if db_init_error: #Check if the call to init_database() returns an error
         typer.secho(
             f'Creating database failed with "{ERRORS[db_init_error]}"',
