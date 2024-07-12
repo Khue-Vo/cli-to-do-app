@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="076bbc09-c38c-4933-b632-a7341e97a48c" name="Changes" comment="#12 SQL3 - Connect to Database">
+    <list default="true" id="076bbc09-c38c-4933-b632-a7341e97a48c" name="Changes" comment="#13 SQL3 - Create new todo list">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/clitodo/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/clitodo/__init__.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/clitodo/database.py" beforeDir="false" afterPath="$PROJECT_DIR$/clitodo/database.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -34,8 +35,10 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Python.CLI_To_Do_List.executor": "Run",
+    "Python.__main__.executor": "Run",
     "Python.activate_this.executor": "Run",
     "Python.cehcking.executor": "Run",
+    "Python.database.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "last_opened_file_path": "C:/Users/Khue Vo/training/python/cli-to-do-app",
@@ -258,7 +261,23 @@
       <option name="project" value="LOCAL" />
       <updated>1720432343632</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="#12 SQL3 - Connect to Database">
+      <option name="closed" value="true" />
+      <created>1720518565563</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1720518565563</updated>
+    </task>
+    <task id="LOCAL-00027" summary="#13 SQL3 - Create new todo list">
+      <option name="closed" value="true" />
+      <created>1720518714830</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1720518714830</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -274,6 +293,7 @@
     <MESSAGE value="#8 Implement the clear CLI Command" />
     <MESSAGE value="#11 Changing __init__.py" />
     <MESSAGE value="#12 SQL3 - Connect to Database" />
-    <option name="LAST_COMMIT_MESSAGE" value="#12 SQL3 - Connect to Database" />
+    <MESSAGE value="#13 SQL3 - Create new todo list" />
+    <option name="LAST_COMMIT_MESSAGE" value="#13 SQL3 - Create new todo list" />
   </component>
 </project>

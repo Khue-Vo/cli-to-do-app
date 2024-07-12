@@ -23,14 +23,14 @@ def init( #Define a Typer Option instance and assign it as a default value to db
         )
 )-> None:
     """Initialize the to-do database."""
-    app_init_error = config.init_app(db_path) #Create the application's configuration file and to-do database
-    if app_init_error: #Check if the call to init_app() returns an error
-        typer.secho(
-            f'Creating config file failed with "{ERRORS[app_init_error]}"',
-            fg=typer.colors.RED,
-        )
-        raise typer.Exit(1)
-    db_init_error = database.init_database(Path(db_path)) #Initialize the database with an empty to-do list
+    # app_init_error = config.init_app(db_path) #Create the application's configuration file and to-do database
+    # if app_init_error: #Check if the call to init_app() returns an error
+    #     typer.secho(
+    #         f'Creating config file failed with "{ERRORS[app_init_error]}"',
+    #         fg=typer.colors.RED,
+    #     )
+    #     raise typer.Exit(1)
+    db_init_error = database.init_database() #Initialize the database with an empty to-do list
     if db_init_error: #Check if the call to init_database() returns an error
         typer.secho(
             f'Creating database failed with "{ERRORS[db_init_error]}"',
@@ -41,14 +41,14 @@ def init( #Define a Typer Option instance and assign it as a default value to db
         typer.secho(f"The to-do database is {db_path}", fg=typer.colors.GREEN)
 
 def get_todoer() -> clitodo.Todoer:
-    if config.CONFIG_FILE_PATH.exists(): # Define a conditional that checks if the application's configuration file exist
-        db_path = database.get_database_path(config.CONFIG_FILE_PATH)
-    else:
-        typer.secho(
-            'Confid file not found. Please, run "clitodo init"',
-            fg=typer.colors.RED,
-        )
-        raise typer.Exit(1)
+    # if config.CONFIG_FILE_PATH.exists(): # Define a conditional that checks if the application's configuration file exist
+    #     db_path = database.get_database_path(config.CONFIG_FILE_PATH)
+    # else:
+    #     typer.secho(
+    #         'Config file not found. Please, run "clitodo init"',
+    #         fg=typer.colors.RED,
+    #     )
+    #     raise typer.Exit(1)
     if db_path.exists(): #Check if the path to the database exists
         return clitodo.Todoer(db_path)
     else:
