@@ -15,6 +15,11 @@ def init_database(db_path: Path):
     """Create the to-do database."""
     try:
         conn = sqlite3.connect(db_path)
+        conn.execute('''CREATE TABLE IF NOT EXISTS TODO_LIST
+                (ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                PRIORITY INT DEFAULT 2 CHECK(PRIORITY >= 1 AND PRIORITY <= 3),
+                DONE BOOLEAN DEFAULT FALSE,
+                DESCRIPTION TEXT NOT NULL);''')
         conn.close()
         return SUCCESS
     except sqlite3.Error as e:
