@@ -101,23 +101,23 @@ def list_all() -> None:
     finally:
         conn.close()
 
-# @app.command(name="complete") #Define set_done() as a Typer command with the @app.command() decorator
-# def set_done(todo_id:  int = typer.Argument(...)) -> None:
-#     """Complete a to-do by setting it as done using its TODO_ID"""
-#     conn = sqlite3.connect(my_todo)
-#     try:
-#         conn.execute("UPDATE TODO_LIST set DONE = 'True' where PRIORITY = ?", (todo_id,))
-#         conn.commit()
-#         typer.secho(f'To-do updated successfully', fg=typer.colors.GREEN)
-#     except sqlite3.Error as e:
-#         typer.secho(
-#             f'Updating to-do failed with "{e}"', fg=typer.colors.RED
-#         )
-#         raise typer.Exit(1)
-#     finally:
-#         conn.close()
-#
-#
+@app.command(name="complete") #Define set_done() as a Typer command with the @app.command() decorator
+def set_done(todo_id:  int = typer.Argument(...)) -> None:
+    """Complete a to-do by setting it as done using its TODO_ID"""
+    conn = sqlite3.connect(my_todo)
+    try:
+        conn.execute("UPDATE TODO_LIST set DONE = 'True' where PRIORITY = ?", (todo_id,))
+        conn.commit()
+        typer.secho(f'To-do updated successfully', fg=typer.colors.GREEN)
+    except sqlite3.Error as e:
+        typer.secho(
+            f'Updating to-do failed with "{e}"', fg=typer.colors.RED
+        )
+        raise typer.Exit(1)
+    finally:
+        conn.close()
+
+
 # @app.command() #Define remove() asa Typer CLI command
 # def remove(todo_id:  int = typer.Argument(...)):
 #     """Remove a to-do using its TODO_ID."""
