@@ -1,201 +1,160 @@
 """This module provides the CLI To-Do List"""
 # clitodo/cli.py
 
-import os
+import sqlite3
 from pathlib import Path
 from typing import List, Optional
+from tabulate import tabulate
 
 import typer
 
 from clitodo import (
-    ERRORS, __app_name__, __version__, config, database, clitodo
+    SUCCESS, DB_WRITE_ERROR, ERRORS, __app_name__, __version__
 )
 
 app = typer.Typer() #Create an explicit Typer application
-db_path: str = ""
+my_todo = 'my_todo.db'
 
 @app.command() #Define init() as a Typer command using the @app.command()
-def init( #Define a Typer Option instance and assign it as a default value to db_path
-        db_path_input: str = typer.Option(
-            str(database.DEFAULT_DB_FILE_PATH),
-            "--db-path",
-            "-db",
-            prompt="to-do database location?" #Displays a prompt asking for the database location,
-                                              # also allows the user to accept the default path by pressing Enter
-        )
-)-> None:
+def init() -> None:
     """Initialize the to-do database."""
-    global db_path
-    db_path = db_path_input
-    db_init_error = database.init_database(Path(db_path)) #Initialize the database with an empty to-do list
-    if db_init_error: #Check if the call to init_database() returns an error
-        typer.secho(
-            f'Creating database failed with "{ERRORS[db_init_error]}"',
-            fg=typer.colors.RED,
-        )
-        raise typer.Exit(1)
-    else:
-        typer.secho(f"The to-do database is {db_path}", fg=typer.colors.GREEN)
+    try:
+        conn = sqlite3.connect(my_todo)
+        # conn.execute('''CREATE TABLE IF NOT EXISTS TODO_LIST
+        #         (ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+        #         PRIORITY INT NOT NULL,
+        #         DONE TEXT DEFAULT 'False',
+        #         DESCRIPTION TEXT NOT NULL);''')
+        conn.close()
+        typer.secho(f"The to-do database is C:\\Users\\Khue Vo\\training\\python\\cli-to-do-app\\my_todo.db", fg=typer.colors.GREEN)
+    except sqlite3.Error as e:
+        typer.secho(f"Error during initialization process: {e}", fg=typer.colors.RED)
 
-def get_todoer() -> clitodo.Todoer:
-    if os.path.exists(db_path):
-        if database.table_exists(db_path):
-            return clitodo.Todoer(db_path)
-        else:
-            typer.secho('Table not found. Please, run "clitodo init"',
-                        fg=typer.colors.RED,
-            )
-            raise typer.Exit(1)
-    else:
-        typer.secho(
-            'Database not found. Please, run "clitodo init"',
-            fg=typer.colors.RED,
-        )
-        raise typer.Exit(1)
-
-@app.command()  # Define add() as a Typer command using the @app.command()
-def add(
-        description: List[str] = typer.Argument(...), #Define description as an argument to add(),
-                                                      #user must provide a to-do description at the command line
-        priority: int = typer.Option(2, "--priority", "-p", min=1, max=3),
-) -> None:
-    """Add a new to-do with a DESCRIPTION."""
-    todoer = get_todoer()
-    todo, error = todoer.add(description, priority)
-    if error: #A conditional statement that prints an error message and exits the application if an error occurs while adding the new to-do to the database
-        typer.secho(
-            f'Adding to-do failed with "{ERRORS[error]}"', fg=typer.colors.RED
-        )
-        raise typer.Exit(1)
-    else:
-        typer.secho(
-            f"""to-do: "{todo['Description']}" was added"""
-            f""" with priority: {priority}""",
-            fg=typer.colors.GREEN,
-        )
-
-@app.command(name="list") #Define list_all() as a Typer command using the @app.command(),
-                          #The name argument to this decorator sets a custom name for the command, which is list here
-                          #Doesn't take any argument or option, just lists the to-dos when user runs list from the command line
-def list_all() -> None:
-    """List all to-dos."""
-    todoer = get_todoer()
-    todo_list = todoer.get_todo_list() #Gets the to-do list from the database
-    if len(todo_list) == 0: #A conditional statement to check if there’s at least one to-do in the list
-        typer.secho(
-            "There are no tasks in the to-do list yet", fg=typer.colors.RED
-        )
-        raise typer.Exit()
-    typer.secho("\nto-do list:\n", fg=typer.colors.BLUE, bold=True) #Prints a top-level header to present the to-do list
-    """Define and print the required columns to display the to-do list in a tabular format"""
-    columns = (
-        "ID.  ",
-        "| Priority  ",
-        "| Done  ",
-        "| Description  ",
-    )
-    headers = "".join(columns)
-    typer.secho(headers, fg=typer.colors.BLUE, bold=True)
-    typer.secho("-" * len(headers), fg=typer.colors.BLUE)
-    for id, todo in enumerate(todo_list, 1): #Print every single to-do on its own row with appropriate padding and separators
-        desc, priority, done = todo.values()
-        typer.secho(
-            f"{id}{(len(columns[0]) - len(str(id))) * ' '}"
-            f"| ({priority}){(len(columns[1]) - len(str(priority)) - 4) * ' '}"
-            f"| {done}{(len(columns[2]) - len(str(done)) -2) * ' '}"
-            f"| {desc}",
-            fg=typer.colors.BLUE
-        )
-    typer.secho("-" * len(headers) + "\n", fg=typer.colors.BLUE) #Prints a line of dashes  to visually separate the to-do list from the next command-line prompt
-
-@app.command(name="complete") #Define set_done() as a Typer command with the @app.command() decorator
-def set_done(todo_id:  int = typer.Argument(...)) -> None:
-    """Complete a to-do by setting it as done using its TODO_ID"""
-    todoer = get_todoer()
-    todo, error = todoer.set_done(todo_id) #Sets the to-do with the specific todo_id as done
-    if error: #Checks if any error occurs during the process
-        typer.secho(
-            f'Completing to-do # "{todo_id}" failed with "{ERRORS[error]}"',
-            fg=typer.colors.RED,
-        )
-        raise typer.Exit(1)
-    else:
-        typer.secho(
-            f"""to-do # {todo_id} "{todo['Description']}" completed!""",
-            fg=typer.colors.GREEN,
-        )
-
-@app.command() #Define remove() asa Typer CLI command
-def remove(
-        todo_id: int = typer.Argument(...),
-        force: bool = typer.Option(
-            False,
-            "--force",
-            "-f",
-            help="Force deletion without confirmation.",
-        ), #Defines force as an option for the remove command
-           #Allows user to delete a to-do without confirmation
-) -> None:
-    """Remove a to-do using its TODO_ID."""
-    todoer = get_todoer()
-
-    def _remove(): #Define an inner function
-                   #Helper function that allows you to reuse the remove functionality
-        todo ,error = todoer.remove(todo_id)
-        if error:
-            typer.secho(
-                f'Removing to-do # {todo_id} failed with "{ERRORS[error]}"',
-                fg=typer.colors.RED,
-            )
-            raise typer.Exit(1)
-        else:
-            typer.secho(
-                f"""to-do # {todo_id}: '{todo["Description"]}' was removed""",
-                fg=typer.colors.GREEN,
-            )
-    if force: #Checks the value of force.
-              #If True, the user wants to remove the to-do without confirmation
-        _remove()
-    else:
-        todo_list =todoer.get_todo_list() #Get the entire to-do list from the database
-        try: #Retrieves the desired to-do from the list
-            todo = todo_list[todo_id - 1]
-        except IndexError:
-            typer.secho("Invalid TODO_ID", fg=typer.colors.RED)
-            raise typer.Exit(1)
-        delete = typer.confirm(
-            f"Delete to-do # {todo_id}: {todo['Description']}?"
-        ) #Call Typer’s confirm() and store the result in delete.
-          #This function provides an alternative way to ask for confirmation.
-          #It allows to use a dynamically created confirmation prompt
-        if delete:
-            _remove()
-        else:
-            typer.echo("Operation canceled")
-
-@app.command(name="clear") #Define remove_all() as a Typer command using the @app.command() decorator with clear as the command name
-def remove_all(
-        force: bool = typer.Option(
-            ...,
-            prompt="Delete all to-dos?",
-            help="Force deletion without confirmations",
-        ), #Define force as a Typer Option
-) -> None:
-    """Remove all to-dos."""
-    todoer = get_todoer()
-    if force: #Checks if force is True
-              #If so, remove all the to-dos from the database
-        error = todoer.remove_all().error
-        if error: #Check if something go wrong during the removing process
-            typer.secho(
-                f'Removing to-dos failed with "{ERRORS[error]}"',
-                fg=typer.colors.RED,
-            )
-            raise typer.Exit(1)
-        else:
-            typer.secho("All to-dos were removed", fg=typer.colors.GREEN)
-    else:
-        typer.echo("Operation canceled")
+# @app.command()  # Define add() as a Typer command using the @app.command()
+# def add(description: List[str] = typer.Argument(...), #Define description as an argument to add(),
+#                                                       #user must provide a to-do description at the command line
+#         priority: int = typer.Option(2, "--priority", "-p", min=1, max=3),):
+#     """Add a new to-do with a DESCRIPTION."""
+#     conn = sqlite3.connect(my_todo)
+#     cursor = conn.cursor()
+#     try:
+#         description_text = " ".join(description)
+#         sql = '''INSERT INTO TODO_LIST (PRIORITY, DESCRIPTION) VALUES (?,?)'''
+#         data = (priority, description_text)
+#         cursor.execute(sql, data)
+#         conn.commit()
+#         return typer.secho(
+#             f"""to-do: "{description_text}" was added"""
+#             f""" with priority: {priority}""",
+#             fg=typer.colors.GREEN,
+#         )
+#     except sqlite3.Error as e:
+#         typer.secho(
+#             f'Adding to-do failed with "{e}"', fg=typer.colors.RED
+#         )
+#         raise typer.Exit(1)
+#     finally:
+#         conn.close()
+#
+#
+# @app.command(name="list") #Define list_all() as a Typer command using the @app.command(),
+#                           #The name argument to this decorator sets a custom name for the command, which is list here
+#                           #Doesn't take any argument or option, just lists the to-dos when user runs list from the command line
+# def list_all() -> None:
+#     """List all to-dos."""
+#     conn = sqlite3.connect(my_todo)
+#     cursor = conn.cursor()
+#     try:
+#         cursor.execute("SELECT * FROM TODO_LIST")
+#         todo_list = cursor.fetchall()
+#         if len(todo_list) == 0:  # Check if there’s at least one to-do in the list
+#             typer.secho(
+#                 "There are no tasks in the to-do list yet", fg=typer.colors.RED
+#             )
+#             raise typer.Exit()
+#         typer.secho("\nto-do list:\n", fg=typer.colors.BLUE,
+#                     bold=True)  # Prints a top-level header to present the to-do list
+#         """Define and print the required columns to display the to-do list in a tabular format"""
+#         columns = (
+#             "ID.  ",
+#             "| Priority  ",
+#             "| Done  ",
+#             "| Description  ",
+#         )
+#         headers = "".join(columns)
+#         typer.secho(headers, fg=typer.colors.BLUE, bold=True)
+#         typer.secho("-" * len(headers), fg=typer.colors.BLUE)
+#         for todo in todo_list:
+#             id_, priority, done, description = todo
+#             typer.secho(
+#                 f"{id_}{(len(columns[0]) - len(str(id_))) * ' '}"
+#                 f"| {priority}{(len(columns[1]) - len(str(priority)) - 4) * ' '}"
+#                 f"| {done}{(len(columns[2]) - len(str(done)) - 2) * ' '}"
+#                 f"| {description}",
+#                 fg=typer.colors.BLUE            )
+#         typer.secho("-" * len(headers) + "\n", fg=typer.colors.BLUE)
+#     except sqlite3.Error as e:
+#         typer.secho(
+#             f'Displaying to-do list failed with "{e}"', fg=typer.colors.RED
+#         )
+#         raise typer.Exit(1)
+#     finally:
+#         conn.close()
+#
+# @app.command(name="complete") #Define set_done() as a Typer command with the @app.command() decorator
+# def set_done(todo_id:  int = typer.Argument(...)) -> None:
+#     """Complete a to-do by setting it as done using its TODO_ID"""
+#     conn = sqlite3.connect(my_todo)
+#     try:
+#         conn.execute("UPDATE TODO_LIST set DONE = 'True' where PRIORITY = ?", (todo_id,))
+#         conn.commit()
+#         typer.secho(f'To-do updated successfully', fg=typer.colors.GREEN)
+#     except sqlite3.Error as e:
+#         typer.secho(
+#             f'Updating to-do failed with "{e}"', fg=typer.colors.RED
+#         )
+#         raise typer.Exit(1)
+#     finally:
+#         conn.close()
+#
+#
+# @app.command() #Define remove() asa Typer CLI command
+# def remove(todo_id:  int = typer.Argument(...)):
+#     """Remove a to-do using its TODO_ID."""
+#     conn = sqlite3.connect(my_todo)
+#     try:
+#         conn.execute("DELETE from TODO_LIST where PRIORITY = ?", (todo_id,))
+#         conn.commit()
+#         typer.secho(f'To-do removed successfully', fg=typer.colors.GREEN)
+#     except sqlite3.Error as e:
+#         typer.secho(
+#             f'Removing to-do failed with "{e}"', fg=typer.colors.RED
+#         )
+#         raise typer.Exit(1)
+#     finally:
+#         conn.close()
+#
+#
+# @app.command(name="clear") #Define remove_all() as a Typer command using the @app.command() decorator with clear as the command name
+# def remove_all():
+#     """Remove all to-dos."""
+#     conn = sqlite3.connect(my_todo)
+#     try:
+#         conn.execute("DROP TABLE IF EXISTS TODO_LIST")
+#         conn.commit()
+#         conn.execute('''CREATE TABLE IF NOT EXISTS TODO_LIST
+#                         (ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+#                         PRIORITY INT NOT NULL,
+#                         DONE TEXT DEFAULT 'False',
+#                         DESCRIPTION TEXT NOT NULL);''')
+#         typer.secho(f'Clearing all to-do successfully')
+#     except sqlite3.Error as e:
+#         typer.secho(
+#             f'Clearing all to-do failed with "{e}"', fg=typer.colors.RED
+#         )
+#         raise typer.Exit(1)
+#     finally:
+#         conn.close()
 
 def _version_callback(value: bool) -> None:
     if value:
