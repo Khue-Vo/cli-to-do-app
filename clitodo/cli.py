@@ -30,33 +30,33 @@ def init() -> None:
     except sqlite3.Error as e:
         typer.secho(f"Error during initialization process: {e}", fg=typer.colors.RED)
 
-# @app.command()  # Define add() as a Typer command using the @app.command()
-# def add(description: List[str] = typer.Argument(...), #Define description as an argument to add(),
-#                                                       #user must provide a to-do description at the command line
-#         priority: int = typer.Option(2, "--priority", "-p", min=1, max=3),):
-#     """Add a new to-do with a DESCRIPTION."""
-#     conn = sqlite3.connect(my_todo)
-#     cursor = conn.cursor()
-#     try:
-#         description_text = " ".join(description)
-#         sql = '''INSERT INTO TODO_LIST (PRIORITY, DESCRIPTION) VALUES (?,?)'''
-#         data = (priority, description_text)
-#         cursor.execute(sql, data)
-#         conn.commit()
-#         return typer.secho(
-#             f"""to-do: "{description_text}" was added"""
-#             f""" with priority: {priority}""",
-#             fg=typer.colors.GREEN,
-#         )
-#     except sqlite3.Error as e:
-#         typer.secho(
-#             f'Adding to-do failed with "{e}"', fg=typer.colors.RED
-#         )
-#         raise typer.Exit(1)
-#     finally:
-#         conn.close()
-#
-#
+@app.command()  # Define add() as a Typer command using the @app.command()
+def add(description: List[str] = typer.Argument(...), #Define description as an argument to add(),
+                                                      #user must provide a to-do description at the command line
+        priority: int = typer.Option(2, "--priority", "-p", min=1, max=3),):
+    """Add a new to-do with a DESCRIPTION."""
+    conn = sqlite3.connect(my_todo)
+    cursor = conn.cursor()
+    try:
+        description_text = " ".join(description)
+        sql = '''INSERT INTO TODO_LIST (PRIORITY, DESCRIPTION) VALUES (?,?)'''
+        data = (priority, description_text)
+        cursor.execute(sql, data)
+        conn.commit()
+        return typer.secho(
+            f"""to-do: "{description_text}" was added"""
+            f""" with priority: {priority}""",
+            fg=typer.colors.GREEN,
+        )
+    except sqlite3.Error as e:
+        typer.secho(
+            f'Adding to-do failed with "{e}"', fg=typer.colors.RED
+        )
+        raise typer.Exit(1)
+    finally:
+        conn.close()
+
+
 # @app.command(name="list") #Define list_all() as a Typer command using the @app.command(),
 #                           #The name argument to this decorator sets a custom name for the command, which is list here
 #                           #Doesn't take any argument or option, just lists the to-dos when user runs list from the command line
