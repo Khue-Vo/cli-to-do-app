@@ -57,50 +57,50 @@ def add(description: List[str] = typer.Argument(...), #Define description as an 
         conn.close()
 
 
-# @app.command(name="list") #Define list_all() as a Typer command using the @app.command(),
-#                           #The name argument to this decorator sets a custom name for the command, which is list here
-#                           #Doesn't take any argument or option, just lists the to-dos when user runs list from the command line
-# def list_all() -> None:
-#     """List all to-dos."""
-#     conn = sqlite3.connect(my_todo)
-#     cursor = conn.cursor()
-#     try:
-#         cursor.execute("SELECT * FROM TODO_LIST")
-#         todo_list = cursor.fetchall()
-#         if len(todo_list) == 0:  # Check if there’s at least one to-do in the list
-#             typer.secho(
-#                 "There are no tasks in the to-do list yet", fg=typer.colors.RED
-#             )
-#             raise typer.Exit()
-#         typer.secho("\nto-do list:\n", fg=typer.colors.BLUE,
-#                     bold=True)  # Prints a top-level header to present the to-do list
-#         """Define and print the required columns to display the to-do list in a tabular format"""
-#         columns = (
-#             "ID.  ",
-#             "| Priority  ",
-#             "| Done  ",
-#             "| Description  ",
-#         )
-#         headers = "".join(columns)
-#         typer.secho(headers, fg=typer.colors.BLUE, bold=True)
-#         typer.secho("-" * len(headers), fg=typer.colors.BLUE)
-#         for todo in todo_list:
-#             id_, priority, done, description = todo
-#             typer.secho(
-#                 f"{id_}{(len(columns[0]) - len(str(id_))) * ' '}"
-#                 f"| {priority}{(len(columns[1]) - len(str(priority)) - 4) * ' '}"
-#                 f"| {done}{(len(columns[2]) - len(str(done)) - 2) * ' '}"
-#                 f"| {description}",
-#                 fg=typer.colors.BLUE            )
-#         typer.secho("-" * len(headers) + "\n", fg=typer.colors.BLUE)
-#     except sqlite3.Error as e:
-#         typer.secho(
-#             f'Displaying to-do list failed with "{e}"', fg=typer.colors.RED
-#         )
-#         raise typer.Exit(1)
-#     finally:
-#         conn.close()
-#
+@app.command(name="list") #Define list_all() as a Typer command using the @app.command(),
+                          #The name argument to this decorator sets a custom name for the command, which is list here
+                          #Doesn't take any argument or option, just lists the to-dos when user runs list from the command line
+def list_all() -> None:
+    """List all to-dos."""
+    conn = sqlite3.connect(my_todo)
+    cursor = conn.cursor()
+    try:
+        cursor.execute("SELECT * FROM TODO_LIST")
+        todo_list = cursor.fetchall()
+        if len(todo_list) == 0:  # Check if there’s at least one to-do in the list
+            typer.secho(
+                "There are no tasks in the to-do list yet", fg=typer.colors.RED
+            )
+            raise typer.Exit()
+        typer.secho("\nto-do list:\n", fg=typer.colors.BLUE,
+                    bold=True)  # Prints a top-level header to present the to-do list
+        """Define and print the required columns to display the to-do list in a tabular format"""
+        columns = (
+            "ID.  ",
+            "| Priority  ",
+            "| Done  ",
+            "| Description  ",
+        )
+        headers = "".join(columns)
+        typer.secho(headers, fg=typer.colors.BLUE, bold=True)
+        typer.secho("-" * len(headers), fg=typer.colors.BLUE)
+        for todo in todo_list:
+            id_, priority, done, description = todo
+            typer.secho(
+                f"{id_}{(len(columns[0]) - len(str(id_))) * ' '}"
+                f"| {priority}{(len(columns[1]) - len(str(priority)) - 4) * ' '}"
+                f"| {done}{(len(columns[2]) - len(str(done)) - 2) * ' '}"
+                f"| {description}",
+                fg=typer.colors.BLUE            )
+        typer.secho("-" * len(headers) + "\n", fg=typer.colors.BLUE)
+    except sqlite3.Error as e:
+        typer.secho(
+            f'Displaying to-do list failed with "{e}"', fg=typer.colors.RED
+        )
+        raise typer.Exit(1)
+    finally:
+        conn.close()
+
 # @app.command(name="complete") #Define set_done() as a Typer command with the @app.command() decorator
 # def set_done(todo_id:  int = typer.Argument(...)) -> None:
 #     """Complete a to-do by setting it as done using its TODO_ID"""
