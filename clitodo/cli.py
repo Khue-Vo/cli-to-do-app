@@ -20,11 +20,11 @@ def init() -> None:
     """Initialize the to-do database."""
     try:
         conn = sqlite3.connect(my_todo)
-        # conn.execute('''CREATE TABLE IF NOT EXISTS TODO_LIST
-        #         (ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-        #         PRIORITY INT NOT NULL,
-        #         DONE TEXT DEFAULT 'False',
-        #         DESCRIPTION TEXT NOT NULL);''')
+        conn.execute('''CREATE TABLE IF NOT EXISTS TODO_LIST
+                (ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                PRIORITY INT NOT NULL,
+                DONE TEXT DEFAULT 'False',
+                DESCRIPTION TEXT NOT NULL);''')
         conn.close()
         typer.secho(f"The to-do database is C:\\Users\\Khue Vo\\training\\python\\cli-to-do-app\\my_todo.db", fg=typer.colors.GREEN)
     except sqlite3.Error as e:
