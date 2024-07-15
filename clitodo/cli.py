@@ -135,26 +135,26 @@ def remove(todo_id:  int = typer.Argument(...)):
         conn.close()
 
 
-# @app.command(name="clear") #Define remove_all() as a Typer command using the @app.command() decorator with clear as the command name
-# def remove_all():
-#     """Remove all to-dos."""
-#     conn = sqlite3.connect(my_todo)
-#     try:
-#         conn.execute("DROP TABLE IF EXISTS TODO_LIST")
-#         conn.commit()
-#         conn.execute('''CREATE TABLE IF NOT EXISTS TODO_LIST
-#                         (ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
-#                         PRIORITY INT NOT NULL,
-#                         DONE TEXT DEFAULT 'False',
-#                         DESCRIPTION TEXT NOT NULL);''')
-#         typer.secho(f'Clearing all to-do successfully')
-#     except sqlite3.Error as e:
-#         typer.secho(
-#             f'Clearing all to-do failed with "{e}"', fg=typer.colors.RED
-#         )
-#         raise typer.Exit(1)
-#     finally:
-#         conn.close()
+@app.command(name="clear") #Define remove_all() as a Typer command using the @app.command() decorator with clear as the command name
+def remove_all():
+    """Remove all to-dos."""
+    conn = sqlite3.connect(my_todo)
+    try:
+        conn.execute("DROP TABLE IF EXISTS TODO_LIST")
+        conn.commit()
+        conn.execute('''CREATE TABLE IF NOT EXISTS TODO_LIST
+                        (ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                        PRIORITY INT NOT NULL,
+                        DONE TEXT DEFAULT 'False',
+                        DESCRIPTION TEXT NOT NULL);''')
+        typer.secho(f'Clearing all to-do successfully')
+    except sqlite3.Error as e:
+        typer.secho(
+            f'Clearing all to-do failed with "{e}"', fg=typer.colors.RED
+        )
+        raise typer.Exit(1)
+    finally:
+        conn.close()
 
 def _version_callback(value: bool) -> None:
     if value:
