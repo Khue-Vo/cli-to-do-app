@@ -118,23 +118,23 @@ def set_done(todo_id:  int = typer.Argument(...)) -> None:
         conn.close()
 
 
-# @app.command() #Define remove() asa Typer CLI command
-# def remove(todo_id:  int = typer.Argument(...)):
-#     """Remove a to-do using its TODO_ID."""
-#     conn = sqlite3.connect(my_todo)
-#     try:
-#         conn.execute("DELETE from TODO_LIST where PRIORITY = ?", (todo_id,))
-#         conn.commit()
-#         typer.secho(f'To-do removed successfully', fg=typer.colors.GREEN)
-#     except sqlite3.Error as e:
-#         typer.secho(
-#             f'Removing to-do failed with "{e}"', fg=typer.colors.RED
-#         )
-#         raise typer.Exit(1)
-#     finally:
-#         conn.close()
-#
-#
+@app.command() #Define remove() as a Typer CLI command
+def remove(todo_id:  int = typer.Argument(...)):
+    """Remove a to-do using its TODO_ID."""
+    conn = sqlite3.connect(my_todo)
+    try:
+        conn.execute("DELETE from TODO_LIST where PRIORITY = ?", (todo_id,))
+        conn.commit()
+        typer.secho(f'To-do removed successfully', fg=typer.colors.GREEN)
+    except sqlite3.Error as e:
+        typer.secho(
+            f'Removing to-do failed with "{e}"', fg=typer.colors.RED
+        )
+        raise typer.Exit(1)
+    finally:
+        conn.close()
+
+
 # @app.command(name="clear") #Define remove_all() as a Typer command using the @app.command() decorator with clear as the command name
 # def remove_all():
 #     """Remove all to-dos."""
